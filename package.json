@@ -1,0 +1,42 @@
+{
+  "name": "mejora-arquitectura-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "node src/loggers/benchmark.js",
+    "start": "node src/server.js",
+    "cluster": "node src/server.js --p 8080 --m CLUSTER",
+    "fork": "node src/server.js --p 8080 --m FORK"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f-feijoo/mejora-arquitectura-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/f-feijoo/mejora-arquitectura-api/issues"
+  },
+  "homepage": "https://github.com/f-feijoo/mejora-arquitectura-api#readme",
+  "dependencies": {
+    "autocannon": "^7.9.0",
+    "bcrypt": "^5.0.1",
+    "compression": "^1.7.4",
+    "connect-mongo": "^4.6.0",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.7",
+    "express": "^4.17.3",
+    "express-session": "^1.17.3",
+    "log4js": "^6.6.1",
+    "moment": "^2.29.3",
+    "mongoose": "^6.4.1",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "socket.io": "^4.5.0",
+    "yargs": "^17.5.1",
+    "@faker-js/faker": "^7.3.0"
+  }
+}
