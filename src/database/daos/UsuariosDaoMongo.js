@@ -1,6 +1,8 @@
 import ContenedorMongoDb from "../contenedores/ContenedorMongo.js";
 import bcrypt from "bcrypt";
 
+let instance = null;
+
 class UsuariosDao extends ContenedorMongoDb {
   constructor() {
     super("usuarios", {
@@ -12,6 +14,14 @@ class UsuariosDao extends ContenedorMongoDb {
       },
     });
   }
+  static getInstance() {
+    if (!instance) {
+      instance = new UsuariosDao();
+    }
+
+    return instance;
+  }
+
   encriptar = (contraseña) => {
     return bcrypt.hashSync(contraseña, bcrypt.genSaltSync(5));
   };
@@ -21,6 +31,5 @@ class UsuariosDao extends ContenedorMongoDb {
   };
 }
 
-let Usuarios = new UsuariosDao();
 
-export default Usuarios;
+export default UsuariosDao;

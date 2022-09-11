@@ -1,10 +1,16 @@
 import moment from "moment";
-import MensajesDao from "../../database/daos/MensajesDao.js";
-import Productos from "../../database/daos/ProductosDao.js";
+import {
+  mostrarMensajes,
+  crearMensaje,
+} from "../../repository/mensajesRepo.js";
+import {
+  mostrarProductos,
+  crearProducto,
+} from "../../repository/productosRepo.js";
 
 export default (io) => {
   io.on("connection", async (socket) => {
-    socket.emit("productos", await Productos.mostrarTodos());
+    socket.emit("productos", await mostrarProductos());
     socket.on("dataMsn", async (x) => {
       const { title, price, thumbnail } = x;
       let objNew = {
@@ -12,13 +18,13 @@ export default (io) => {
         price: price,
         thumbnail: thumbnail,
       };
-      await Productos.guardar(objNew);
-      io.sockets.emit("productos", await Productos.mostrarTodos());
+      await crearProducto(objNew);
+      io.sockets.emit("productos", await mostrarProductos());
     });
     const chat = {
       id: `${Math.floor(Math.random() * 1000)}`,
       nombre: "Centro de Mensajes",
-      mensajes: await MensajesDao.mostrarTodos(),
+      mensajes: await mostrarMensajes(),
     };
     socket.emit("mensajes", chat);
     socket.on("Msn", async (x) => {
@@ -29,11 +35,11 @@ export default (io) => {
         texto: texto,
         timestamp: moment().format("DD/MM/YYYY hh:mm:ss"),
       };
-      await MensajesDao.guardar(newMen);
+      await crearMensaje(newMen);
       const chat = {
         id: `${Math.floor(Math.random() * 1000)}`,
         nombre: "Centro de Mensajes",
-        mensajes: await MensajesDao.mostrarTodos(),
+        mensajes: await mostrarMensajes(),
       };
       io.sockets.emit("mensajes", chat);
     });

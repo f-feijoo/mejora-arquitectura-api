@@ -21,6 +21,7 @@ mongoose.connection.on("error", () => {
 class ContenedorMongoDb {
   constructor(nombreColeccion, esquema) {
     this.coleccion = mongoose.model(nombreColeccion, esquema);
+    this.value = Math.random(100)
   }
   async mostrar(obj) {
     try {

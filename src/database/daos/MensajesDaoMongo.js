@@ -1,5 +1,7 @@
 import ContenedorMongoDb from "../contenedores/ContenedorMongo.js";
 
+let instance = null;
+
 class MensajesDao extends ContenedorMongoDb {
   constructor() {
     super("mensajes", {
@@ -34,8 +36,14 @@ class MensajesDao extends ContenedorMongoDb {
       },
     });
   }
+
+  static getInstance() {
+    if (!instance) {
+      instance = new MensajesDao();
+    }
+
+    return instance;
+  }
 }
 
-let Mensajes = new MensajesDao();
-
-export default Mensajes;
+export default MensajesDao;

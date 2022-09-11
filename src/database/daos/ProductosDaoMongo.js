@@ -1,5 +1,7 @@
 import ContenedorMongoDb from "../contenedores/ContenedorMongo.js";
 
+let instance = null;
+
 class ProductosDao extends ContenedorMongoDb {
   constructor() {
     super("productos", {
@@ -14,8 +16,13 @@ class ProductosDao extends ContenedorMongoDb {
       },
     });
   }
+  static getInstance() {
+    if (!instance) {
+      instance = new ProductosDao();
+    }
+
+    return instance;
+  }
 }
 
-let Productos = new ProductosDao();
-
-export default Productos;
+export default ProductosDao;
